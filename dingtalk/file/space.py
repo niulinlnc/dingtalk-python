@@ -7,16 +7,18 @@
 # @File : space.py
 # @Software: PyCharm
 import requests
-from .configs import *
-from .foundation import dingtalk_resp
+from dingtalk.configs import *
+from dingtalk.foundation import dingtalk_resp
 
 __author__ = 'blackmatrix'
+
+__all__ = ['get_custom_space']
 
 
 @dingtalk_resp
 def get_custom_space(access_token, domain, agent_id):
-    params = {'access_token': access_token, 'domain': domain, 'agent_id': agent_id}
-    resp = requests.get(DING_GET_CSPACE, params=params)
+    url = DING_GET_CSPACE.format(access_token=access_token, domain=domain, agent_id=agent_id)
+    resp = requests.get(url)
     return resp
 
 

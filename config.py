@@ -6,7 +6,6 @@
 # @Blog : http://www.cnblogs.com/blackmatrix/
 # @File : config.py
 # @Software: PyCharm
-from toolkit.cmdline import cmdline
 from toolkit.config import BaseConfig, get_current_config
 
 __author__ = 'blackmatrix'
@@ -14,29 +13,37 @@ __author__ = 'blackmatrix'
 
 class CommonConfig(BaseConfig):
 
-    DEBUG = True
-    TESTING = True
+    # 日期格式配置
+    DATE_FMT = '%Y-%m-%d'
+    DATETIME_FMT = '%Y-%m-%d %H:%M:%S'
 
-    # Cache
+    # 钉钉会话存储，memcached、redis、mysql任选其一即可
+    # memcached
     CACHE_MEMCACHED_SERVERS = ['127.0.0.1:11211']
-    CACHE_KEY_PREFIX = 'default'
+    # redis
+    CACHE_REDIS_SERVERS = '127.0.0.1'
+    CACHE_REDIS_PORT = '6379'
+    CACHE_REDIS_DB = 0
+    # mysql
+    DING_SESSION_HOST = '127.0.0.1'
+    DING_SESSION_PORT = 3306
+    DING_SESSION_USER = 'root'
+    DING_SESSION_PASS = 'password'
+    DING_SESSION_DB = 'DingTalkCache'
 
-    # dingtalk
-    DING_GET_ACCESS_TOKEN = 'https://oapi.dingtalk.com/gettoken'
-    DING_GET_JSAPI_TICKET = 'https://oapi.dingtalk.com/get_jsapi_ticket'
-    DING_GET_USER_LIST = 'https://oapi.dingtalk.com/user/simplelist'
-    DING_GET_USER_INFO = 'https://oapi.dingtalk.com/user/getuserinfo'
-    DING_GET_DEPARTMENTS = 'https://oapi.dingtalk.com/department/list'
-    DING_METHODS_URL = 'https://eco.taobao.com/router/rest'
+    # DingTalk的信息配置
+    DING_DOMAIN = 'testdomain'
     DING_CORP_ID = None
     DING_CORP_SECRET = None
+    DING_AGENT_ID = None
+    DING_AES_KEY = None
+    DING_CALLBACK = None  # 钉钉回调地址，必须返回含有success字符串的json格式
 
 
 class DevConfig(CommonConfig):
 
-    # Cache
+    # 钉钉会话存储
     CACHE_MEMCACHED_SERVERS = ['127.0.0.1:11211']
-    CACHE_KEY_PREFIX = 'dev'
 
 
 default = CommonConfig()
@@ -46,6 +53,6 @@ configs = {'default': default,
            'devcfg': devcfg}
 
 # 读取配置文件的名称，在具体的应用中，可以从环境变量、命令行参数等位置获取配置文件名称
-config_name = cmdline.config
+config_name = 'default'
 
 current_config = get_current_config(config_name)
