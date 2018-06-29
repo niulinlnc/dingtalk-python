@@ -14,7 +14,7 @@ from ..foundation import dingtalk_resp, call_dingtalk_webapi
 __author__ = 'blackmatrix'
 
 __all__ = ['get_user', 'update_user', 'create_user', 'delete_user', 'get_user_by_code',
-           'get_dept_user_list', 'get_user_departments', 'get_org_user_count']
+           'get_dept_user_list', 'get_user_departments', 'get_org_user_count', 'get_userid_by_unionid']
 
 
 @dingtalk_resp
@@ -79,4 +79,11 @@ def get_org_user_count(access_token, only_active):
 def get_user_by_code(access_token, code):
     params = {'access_token': access_token, 'code': code}
     resp = requests.get(DING_GET_USER_BY_CODE, params=params)
+    return resp
+
+# 根据unionid获取成员的userid
+@dingtalk_resp
+def get_userid_by_unionid(access_token, unionid):
+    params = {'access_token': access_token, 'unionid': unionid}
+    resp = requests.get(DING_GET_USERID_BY_UNIONID, params=params)
     return resp

@@ -7,7 +7,7 @@
 # @File : workflow.py
 # @Software: PyCharm
 import json
-from dingtalk.foundation import *
+from ..foundation import *
 from datetime import datetime
 from json import JSONDecodeError
 

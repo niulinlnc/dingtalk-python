@@ -44,6 +44,8 @@ DING_GET_USER_DEPARTMENTS = 'https://oapi.dingtalk.com/department/list_parent_de
 DING_GET_ORG_USER_COUNT = 'https://oapi.dingtalk.com/user/get_org_user_count'
 # 通过CODE换取用户身份
 DING_GET_USER_BY_CODE = 'https://oapi.dingtalk.com/user/getuserinfo'
+# 根据unionid获取成员的userid
+DING_GET_USERID_BY_UNIONID = 'https://oapi.dingtalk.com/user/getUseridByUnionid'
 # 获取企业下的自定义空间
 DING_GET_CSPACE = 'https://oapi.dingtalk.com/cspace/get_custom_space?access_token={access_token}&domain={domain}&agent_id={agent_id}'
 # 注册回调
@@ -54,6 +56,8 @@ DING_UPDATE_CALL_BACK = 'https://oapi.dingtalk.com/call_back/update_call_back?ac
 DING_GET_CALL_BACK_FAILED_RESULT = 'https://oapi.dingtalk.com/call_back/get_call_back_failed_result?access_token={access_token}'
 # 获取考勤打卡记录
 DING_ATTENDANCE_RECORD_LIST = 'https://oapi.dingtalk.com/attendance/listRecord?access_token={access_token}'
+# 获取考勤结果记录
+DING_ATTENDANCE_LIST = 'https://oapi.dingtalk.com/attendance/list?access_token={access_token}'
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ from functools import partial
 from datetime import datetime
 from ..foundation import dingtalk_method
 from ..exceptions import DingTalkExceptions
-from .attends import get_attendance_record_list, get_simple_groups, get_schedule_list
+from .attends import *
 
 __author__ = 'blackmatrix'
 
@@ -66,7 +66,7 @@ class SmartWork:
 
     def get_attendance_record_list(self, user_ids, check_data_from, check_data_to):
         """
-        获取考勤打卡记录
+        获取考勤打卡原始记录
         :param user_ids: 企业内的员工id列表，最多不能超过50个
         :param check_data_from: 查询考勤打卡记录的起始工作日
         :param check_data_to: 查询考勤打卡记录的结束工作日。注意，起始与结束工作日最多相隔7天
@@ -75,6 +75,21 @@ class SmartWork:
         result = get_attendance_record_list(self.auth.access_token, user_ids, check_data_from, check_data_to)
         # 钉钉接口返回的数据没有request_id 2018.02.28
         return result
+
+    def get_attendance_record_list_result(self, work_data_from, work_data_to, user_ids, offset=0, limit=50):
+        """
+        获取考勤打卡结果记录
+        :param user_ids: 企业内的员工id列表，最多不能超过50个
+        :param work_data_from: 查询考勤打卡结果的起始工作日
+        :param work_data_to: 查询考勤打卡结果的结束工作日。注意，起始与结束工作日最多相隔7天
+        :param offset: 查询考勤打卡结果的结束工作日。
+        :param limit: 查询考勤打卡结果的结束工作日。
+        :return:
+        """
+        result = get_attendance_record_list_result(self.auth.access_token, work_data_from, work_data_to, user_ids, offset=offset, limit=limit)
+        # 钉钉接口返回的数据没有request_id 2018.02.28
+        return result
+
 
     @method('dingtalk.smartwork.bpms.processinstance.list')
     def get_bpms_instance_list(self, process_code, start_time, end_time=None, size=10, cursor=0):

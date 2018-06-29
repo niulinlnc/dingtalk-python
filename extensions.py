@@ -7,9 +7,9 @@
 # @File : extensions.py
 # @Software: PyCharm
 import logging
-from dingtalk import DingTalkApp
-from config import current_config
-from dingtalk import SessionManager
+from .dingtalk import DingTalkApp
+from .config import current_config
+from .dingtalk import SessionManager
 
 __author__ = 'blackmatrix'
 
@@ -121,14 +121,14 @@ class MySQLSessionManager(SessionManager):
 #                                       db=DING_SESSION_DB)
 
 # 钉钉会话管理，Memcached支持
-from memcache import Client
-session_manager = Client(current_config.CACHE_MEMCACHED_SERVERS)
+# from memcache import Client
+# session_manager = Client(current_config.CACHE_MEMCACHED_SERVERS)
 
 # 钉钉会话管理，Redis支持
-# import redis
-# session_manager = redis.Redis(host=current_config.CACHE_REDIS_SERVERS,
-#                               port=current_config.CACHE_REDIS_PORT,
-#                               db=current_config.CACHE_REDIS_DB)
+import redis
+session_manager = redis.Redis(host=current_config.CACHE_REDIS_SERVERS,
+                              port=current_config.CACHE_REDIS_PORT,
+                              db=current_config.CACHE_REDIS_DB)
 
 # 这里选择从配置文件读取设定的缓存对象
 # session_manager = current_config.DING_SESSION_MANAGER

@@ -145,6 +145,15 @@ class Contact:
         data = get_user_by_code(self.auth.access_token, code)
         return data
 
+    def get_userid_by_unionid(self, unionid: str):
+        """
+        根据unionid获取成员的userid
+        :param unionid:
+        :return:
+        """
+        data = get_userid_by_unionid(self.auth.access_token, unionid)
+        return data
+
     # ------------------- 部门管理部分 -------------------
 
     def get_department_id_list(self, dept_id=1):
