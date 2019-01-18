@@ -7,16 +7,52 @@
 # @File : extensions.py
 # @Software: PyCharm
 import logging
-from dingtalk import DingTalkApp
+import redis
+import pymysql
 from config import DingTalkConfig
-from dingtalk import SessionManagerBase
 
 __author__ = 'blackmatrix'
 
-class MySQLSessionManager(SessionManagerBase):
+
+class BaseSessionManager:
+    """
+    会话管理
+    除了支持redis和memcached以外
+    也可以通过实现此类的抽象方法支持mysql等数据库
+    """
+
+    def set(self, key, value, expires):
+        """
+        存储会话数据
+        :param key:
+        :param value:
+        :param expires: 超时时间，单位秒
+        :return:
+        """
+        raise NotImplementedError
+
+    def get(self, key):
+        """
+        获取会话数据，获取时需要判断会话是否过期
+        如已经会话数据已经过期，需要返回None
+        :param key:
+        :return:
+        """
+        raise NotImplementedError
+
+    def delete(self, key):
+        """
+        删除会话数据
+        :param key:
+        :return:
+        """
+        raise NotImplementedError
+
+
+class MySQLSessionManager(BaseSessionManager):
 
     """
-    一个简单实现的使用MySQL实现管理access token和jsapi ticket过期时间的例子
+    一个使用MySQL实现管理会话的例子
 
     SET NAMES utf8mb4;
     SET FOREIGN_KEY_CHECKS = 0;
@@ -37,7 +73,6 @@ class MySQLSessionManager(SessionManagerBase):
     """
 
     def __init__(self, host, user, pass_, db, port=3306):
-        import pymysql
         self.connection = pymysql.connect(host=host, port=port, user=user, password=pass_, db=db)
         self.connection.autocommit(True)
 
@@ -96,7 +131,7 @@ class MySQLSessionManager(SessionManagerBase):
             logging.error(ex)
             self.connection()
 
-#  # 钉钉会话管理
+#  # 会话管理
 #  # Mysql支持
 #  session_manager = MySQLSessionManager(host=DingTalkConfig.DING_SESSION_HOST,
 #                                       port=DingTalkConfig.DING_SESSION_PORT,
@@ -108,8 +143,8 @@ class MySQLSessionManager(SessionManagerBase):
 #  from memcache import Client
 #  session_manager = Client(DingTalkConfig.CACHE_MEMCACHED_SERVERS)
 
+
 # Redis支持
-import redis
 pool = redis.ConnectionPool(host=DingTalkConfig.CACHE_REDIS_SERVERS,
                             port=DingTalkConfig.CACHE_REDIS_PORT,
                             db=DingTalkConfig.CACHE_REDIS_DB)
