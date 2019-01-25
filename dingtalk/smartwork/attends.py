@@ -7,7 +7,7 @@
 # @Software: PyCharm
 import requests
 from datetime import datetime
-from ..configs import DING_ATTENDANCE_RECORD_LIST, DING_ATTENDANCE_LIST
+from ..configs import DING_ATTENDANCE_RECORD_LIST
 from ..foundation import call_dingtalk_webapi, dingtalk_resp
 
 __author__ = 'blackmatrix'
@@ -39,10 +39,10 @@ def get_simple_groups(access_token, offset=0, size=10):
     return call_dingtalk_webapi(access_token, 'dingtalk.smartwork.attends.getsimplegroups',
                                 'GET', offset=offset, size=size)
 
+
 @dingtalk_resp
 def get_attendance_record_list(access_token, user_ids, check_data_from, check_data_to):
     """
-    获取考勤打卡原始记录
     :param access_token:
     :param user_ids:
     :param check_data_from:
@@ -59,31 +59,6 @@ def get_attendance_record_list(access_token, user_ids, check_data_from, check_da
         pass
     payload = {'userIds': user_ids, 'checkDateFrom': check_data_from, 'checkDateTo': check_data_to}
     url = DING_ATTENDANCE_RECORD_LIST.format(access_token=access_token)
-    resp = requests.post(url, json=payload)
-    return resp
-
-
-
-@dingtalk_resp
-def get_attendance_record_list_result(access_token,work_data_from, work_data_to, user_ids, offset=0, limit=50):
-    """
-    获取考勤打卡结果记录
-    :param access_token:
-    :param user_ids:
-    :param check_data_from:
-    :param check_data_to:
-    :return:
-    """
-    try:
-        work_data_from = datetime.strftime(work_data_from, '%Y-%m-%d %H:%M:%S')
-    except AttributeError:
-        pass
-    try:
-        work_data_to = datetime.strftime(work_data_to, '%Y-%m-%d %H:%M:%S')
-    except AttributeError:
-        pass
-    payload = {'workDateFrom': work_data_from, 'workDateTo': work_data_to, 'userIdList': user_ids, 'offset': offset, 'limit':limit}
-    url = DING_ATTENDANCE_LIST.format(access_token=access_token)
     resp = requests.post(url, json=payload)
     return resp
 
