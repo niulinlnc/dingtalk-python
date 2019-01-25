@@ -53,3 +53,4 @@ def delete_corp_ext(access_token, user_id: int):
     """
     data = call_topapi(access_token, 'extcontact/delete', 'POST', user_id=user_id)
     return data
+
