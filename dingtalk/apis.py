@@ -58,7 +58,8 @@ DING_GET_CALL_BACK_FAILED_RESULT = 'https://oapi.dingtalk.com/call_back/get_call
 DING_ATTENDANCE_RECORD_LIST = 'https://oapi.dingtalk.com/attendance/listRecord?access_token={access_token}'
 # 获取考勤结果记录
 DING_ATTENDANCE_LIST = 'https://oapi.dingtalk.com/attendance/list?access_token={access_token}'
-
+#根据unionid获取userid
+DING_GET_USERID_BY_UNIONID = 'https://oapi.dingtalk.com/user/getUseridByUnionid'
 
 if __name__ == '__main__':
     pass

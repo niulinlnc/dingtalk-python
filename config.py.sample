@@ -30,7 +30,7 @@ class MySQLConfig():
 
 # DingTalk的信息配置
 class DingTalkConfig():
-    DING_APPKEY = 'dingoay6n7ifz1wzrs77'  # 创建应用后查看
-    DING_APPSECRE = 'Do0GQOjbPdAYSd5LNm2UgyvQeQva2J4Xm0xvb6Tw3h2uRM4HJV1EYhq17_eiuW9I'  # 创建应用后查看
+    DING_APPKEY = 'dingoay6n7izrs77'  # 创建应用后查看
+    DING_APPSECRE = 'Do0GQOjLNm2UgyvQeQva2J4RM4HJV1EYhq17_eiuW9I'  # 创建应用后查看
     DING_CORP_ID = None
     DING_AGENT_ID = None
